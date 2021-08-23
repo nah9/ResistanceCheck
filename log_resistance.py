@@ -57,13 +57,14 @@ inst.write("TRIG:ELOG (03)")
 #inst.write("SENS:FUNC:ON?")
 #MAX RES
 # MEASure:{RESistance|FRESistance}? [{<range>|AUTO|MIN|MAX|DEF} [, {<resolution>|MIN|MAX|DEF}]]
-meas_resistance = inst.write("MEAS:RES?")
 
 with PLC() as comm:
     comm.IPAddress = '172.30.21.130'
     write = True
     while write:
+        meas_resistance = inst.write("MEAS:RES?")
         comm.Write('ResistanceA', meas_resistance)
+        time.sleep(0.1)
 
 """
 #Retrieve External Datalogger Output
